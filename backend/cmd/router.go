@@ -16,6 +16,9 @@ func NewRouter() http.Handler {
 	mux.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("wow"))
 	})
+	mux.Get("/p", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("wowwww"))
+	})
 	mux.Post("/mail", handlers.SendMailPostHandler(App.Mail.Mail))
 	return mux
 }

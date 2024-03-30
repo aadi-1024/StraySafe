@@ -1,11 +1,10 @@
 package main
 
 import (
-	"github.com/aadi-1024/straysafe/internals/db"
-	"github.com/aadi-1024/straysafe/internals/mailer"
+	"github.com/aadi-1024/StraySafe/backend/pkg/postgres"
 )
 
-type Config struct {
-	Mail *mailer.Mailer
-	Db *db.Database
+// App carries the app wide config and units
+type App struct {
+	Db *postgres.Database
 }

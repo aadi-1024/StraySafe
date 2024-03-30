@@ -1,34 +1,26 @@
 package main
 
 import (
+	"github.com/aadi-1024/StraySafe/backend/pkg/postgres"
+	"github.com/labstack/echo/v4"
 	"log"
-	"net/http"
-
-	"github.com/aadi-1024/straysafe/internals/db"
-	"github.com/aadi-1024/straysafe/internals/mailer"
+	"os"
 )
 
-var App *Config
+var app = &App{}
 
 func main() {
-	var err error
-	App = &Config{}
 
-	App.Mail = mailer.NewMailer("username", "password", "localhost")
-	go App.Mail.StartService()
-	App.Db, err = db.NewDb("mongodb://localhost:27017")
-
+	db, err := postgres.NewDb(os.Getenv("DSN"))
 	if err != nil {
-		log.Println(err)
+		log.Fatal(err)
 	}
+	app.Db = db
 
-	srv := http.Server{
-		Addr:    "0.0.0.0:8080",
-		Handler: NewRouter(),
-	}
+	e := echo.New()
+	SetupRoutes(e)
 
-	log.Println("starting server on port 8080")
-	if err := srv.ListenAndServe(); err != nil {
-		log.Println(err)
+	if err := e.Start("0.0.0.0:8080"); err != nil {
+		log.Fatal(err)
 	}
 }

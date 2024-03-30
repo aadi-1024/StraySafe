@@ -1,9 +1,18 @@
 services:
-  mongodb:
-    image: mongo
+  db:
+    image: postgres:alpine
     ports:
-      - 27017:27017
-    restart: always
+      - 5432:5432
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=user
-      - MONGO_INITDB_ROOT_PASSWORD=pass
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: straysafe
+    shm_size: 256mb
+
+  backend:
+    build:
+      dockerfile: backend/Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      DSN: postgres://postgres:password@db:5432/straysafe

@@ -4,7 +4,7 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_USER: postgres
+      POSTGRES_USER: database
       POSTGRES_PASSWORD: password
       POSTGRES_DB: straysafe
     shm_size: 256mb
@@ -15,4 +15,20 @@ services:
     ports:
       - 8080:8080
     environment:
-      DSN: postgres://postgres:password@db:5432/straysafe
+      DSN: postgres://database:password@db:5432/straysafe
+      JWT_SECRET: hugesecret
+    depends_on:
+      - db
+      - auth
+
+  auth:
+    build:
+      dockerfile: auth-micro/Dockerfile
+    ports:
+      - 9876:9876
+    depends_on: [db]
+    environment:
+      DSN: postgres://database:password@db:5432/straysafe
+      JWT_SECRET: hugesecret
+#    logging:
+#      driver: none

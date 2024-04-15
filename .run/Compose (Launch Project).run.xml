@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Compose (Launch Project)" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
+    <deployment type="docker-compose.yml">
+      <settings>
+        <option name="envFilePath" value="" />
+        <option name="commandLineOptions" value="--build" />
+        <option name="sourceFilePath" value="docker-compose.yaml" />
+      </settings>
+    </deployment>
+    <method v="2">
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="go build github.com/aadi-1024/StraySafe/backend/cmd" run_configuration_type="GoApplicationRunConfiguration" />
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="go build github.com/aadi-1024/auth-micro/cmd" run_configuration_type="GoApplicationRunConfiguration" />
+    </method>
+  </configuration>
+</component>

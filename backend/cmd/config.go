@@ -1,10 +1,11 @@
 package main
 
 import (
-	"github.com/aadi-1024/StraySafe/backend/pkg/postgres"
+	"github.com/aadi-1024/StraySafe/backend/pkg/database"
 )
 
 // App carries the app wide config and units
 type App struct {
-	Db *postgres.Database
+	Db        *database.Database
+	JwtSecret []byte
 }

@@ -6,5 +6,5 @@ type Ngo struct {
 	About     string  `json:"about,omitempty"`
 	Latitude  float32 `json:"latitude,omitempty"`
 	Longitude float32 `json:"longitude,omitempty"`
-	Password  string  `json:"password"`
+	Password  string  `json:"password,omitempty"`
 }

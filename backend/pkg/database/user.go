@@ -9,6 +9,6 @@ import (
 //
 
 func (d *Database) NewIncident(incident models.Incident) error {
-	res := d.Pool.Omit("resolverId").Create(&incident)
+	res := d.Pool.Omit("resolverid").Create(&incident)
 	return res.Error
 }

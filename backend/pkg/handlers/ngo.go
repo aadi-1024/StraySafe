@@ -16,9 +16,16 @@ func MarkResolvedHandler(db *database.Database) echo.HandlerFunc {
 				Content: nil,
 			})
 		}
-		incId, _ := strconv.Atoi(c.FormValue("id"))
-		inc := models.Incident{Id: incId}
-		err := db.MarkResolved(inc, c.Get("id").(int))
+		//incId, _ := strconv.Atoi(c.FormValue("id"))
+		id, err := strconv.Atoi(c.Param("id"))
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, models.JsonResponse{
+				Message: "invalid id",
+				Content: err.Error(),
+			})
+		}
+		inc := models.Incident{Id: id}
+		err = db.MarkResolved(inc, c.Get("id").(int))
 
 		if err != nil {
 			return c.JSON(http.StatusBadRequest, models.JsonResponse{

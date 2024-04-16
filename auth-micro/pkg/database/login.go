@@ -19,7 +19,7 @@ func (d *Database) VerifyLogin(user models.User, j *jwtUtil.JwtConfig) (string, 
 		return "", err
 	}
 	//if no err up till this point, password has been verified as correct
-	token, err := j.GenerateToken(u.Id)
+	token, err := j.GenerateToken(u.Id, "usr")
 	if err != nil {
 		return "", err
 	}
@@ -39,7 +39,7 @@ func (d *Database) RegisterUser(user models.User) error {
 	return res.Error
 }
 
-func (d *Database) ResetPassword(user models.User, new_pass []byte) error {
+func (d *Database) ResetPassword(user models.User, newPass []byte) error {
 	u := &models.User{}
 	res := d.Pool.First(u, "username = ?", user.Username)
 	if res.Error != nil {
@@ -51,7 +51,7 @@ func (d *Database) ResetPassword(user models.User, new_pass []byte) error {
 		return err
 	}
 
-	hash, err := bcrypt.GenerateFromPassword(new_pass, -1)
+	hash, err := bcrypt.GenerateFromPassword(newPass, -1)
 	if err != nil {
 		return err
 	}

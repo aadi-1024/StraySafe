@@ -10,7 +10,10 @@ func PopulateRouter(e *echo.Echo) {
 	e.GET("/ping", func(c echo.Context) error {
 		return c.String(http.StatusOK, "pong")
 	})
-	e.POST("/login", handlers.LoginHandler(app.Db, app.Jwt))  //login with an existing account
-	e.POST("/register", handlers.RegistrationHandler(app.Db)) //register a new user
-	e.POST("/reset", handlers.ResetPasswordHandler(app.Db))   //reset password
+	e.POST("user/login", handlers.LoginHandler(app.Db, app.Jwt))  //login with an existing account
+	e.POST("user/register", handlers.RegistrationHandler(app.Db)) //register a new user
+	e.POST("user/reset", handlers.ResetPasswordHandler(app.Db))   //reset password
+
+	e.POST("ngo/login", handlers.NgoLoginHandler(app.Db, app.Jwt))
+	e.POST("ngo/register", handlers.NgoRegistrationHandler(app.Db))
 }

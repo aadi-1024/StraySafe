@@ -20,10 +20,10 @@ func NewJwtConfig(exp time.Duration) *JwtConfig {
 	}
 }
 
-func (j *JwtConfig) GenerateToken(uid int) (string, error) {
+func (j *JwtConfig) GenerateToken(uid int, typ string) (string, error) {
 	clms := models.Claims{
 		uid,
-		"usr",
+		typ,
 		jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(j.expiry)),
 		},

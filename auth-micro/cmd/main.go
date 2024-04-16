@@ -17,7 +17,7 @@ func main() {
 	}
 	app.Db = db
 
-	conf := jwtUtil.NewJwtConfig(5 * time.Minute)
+	conf := jwtUtil.NewJwtConfig(24 * time.Hour)
 	app.Jwt = conf
 
 	e := echo.New()

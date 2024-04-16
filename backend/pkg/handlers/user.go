@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/json"
 	"github.com/aadi-1024/StraySafe/backend/pkg/database"
 	"github.com/aadi-1024/StraySafe/backend/pkg/models"
 	"github.com/labstack/echo/v4"
@@ -62,6 +63,36 @@ func IncidentPostHandler(d *database.Database) echo.HandlerFunc {
 		return c.JSON(http.StatusOK, models.JsonResponse{
 			Message: "successful",
 			Content: nil,
+		})
+	}
+}
+
+type jsonReq struct {
+	Latitude  float32 `json:"latitude"`
+	Longitude float32 `json:"longitude"`
+	Number    int     `json:"number"`
+}
+
+func NearestNgos(d *database.Database) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		payload := &jsonReq{}
+		err := json.NewDecoder(c.Request().Body).Decode(payload)
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, models.JsonResponse{
+				Message: "couldn't decode body",
+				Content: err.Error(),
+			})
+		}
+		m, err := d.GetNearestNgo(payload.Latitude, payload.Longitude, payload.Number)
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, models.JsonResponse{
+				Message: "database error",
+				Content: err.Error(),
+			})
+		}
+		return c.JSON(http.StatusOK, models.JsonResponse{
+			Message: "successful",
+			Content: m,
 		})
 	}
 }

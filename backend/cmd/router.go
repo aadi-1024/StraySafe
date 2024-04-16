@@ -12,4 +12,6 @@ func SetupRoutes(e *echo.Echo) {
 	})
 	e.POST("/incident", handlers.IncidentPostHandler(app.Db), JwtMiddleware) //new incident
 	e.GET("/resolveIncident/:id", handlers.MarkResolvedHandler(app.Db), JwtMiddleware)
+	e.GET("/ngo/about/:id", handlers.GetNgoByIdHandler(app.Db))
+	e.POST("/ngo/nearest", handlers.NearestNgos(app.Db))
 }

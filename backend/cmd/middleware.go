@@ -4,7 +4,6 @@ import (
 	"github.com/aadi-1024/StraySafe/backend/pkg/models"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/labstack/echo/v4"
-	"log"
 	"net/http"
 	"strings"
 	"time"
@@ -50,7 +49,7 @@ func JwtMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 				Content: nil,
 			})
 		}
-		log.Println(clms)
+
 		c.Set("typ", clms.Type)
 		c.Set("id", clms.Id)
 		return next(c)

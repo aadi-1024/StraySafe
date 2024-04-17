@@ -8,7 +8,7 @@ CREATE TABLE incidents (
     Longitude NUMERIC NOT NULL,
     Title VARCHAR(128) NOT NULL,
     Description VARCHAR(1023),
-    Image BYTEA NOT NULL,
+    Image VARCHAR(64) NOT NULL,
     Resolved BOOLEAN NOT NULL DEFAULT FALSE,
     ResolverId INT DEFAULT NULL
 )

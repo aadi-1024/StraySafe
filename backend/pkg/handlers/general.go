@@ -24,9 +24,23 @@ func GetNgoByIdHandler(d *database.Database) echo.HandlerFunc {
 				Content: err.Error(),
 			})
 		}
+
+		num, err := d.GetResolvedCases(id)
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, models.JsonResponse{
+				Message: "database error",
+				Content: err.Error(),
+			})
+		}
+
+		m := make(map[string]any)
+		m["ngo"] = ngo
+		m["num"] = num
+
 		return c.JSON(http.StatusOK, models.JsonResponse{
 			Message: "successful",
-			Content: ngo,
+			Content: m,
 		})
+
 	}
 }

@@ -17,6 +17,8 @@ services:
     environment:
       DSN: postgres://database:password@db:5432/straysafe
       JWT_SECRET: hugesecret
+    volumes:
+      - img:/app/img
     depends_on:
       - db
       - auth
@@ -32,3 +34,7 @@ services:
       JWT_SECRET: hugesecret
 #    logging:
 #      driver: none
+
+volumes:
+  img:
+    name: image-directory

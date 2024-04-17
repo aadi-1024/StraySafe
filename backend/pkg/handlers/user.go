@@ -6,7 +6,9 @@ import (
 	"github.com/aadi-1024/StraySafe/backend/pkg/models"
 	"github.com/labstack/echo/v4"
 	"net/http"
+	"os"
 	"strconv"
+	"time"
 )
 
 func IncidentPostHandler(d *database.Database) echo.HandlerFunc {
@@ -34,11 +36,22 @@ func IncidentPostHandler(d *database.Database) echo.HandlerFunc {
 				Content: err.Error(),
 			})
 		}
-
 		_, err = file.Read(buf)
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, models.JsonResponse{
 				Message: "error parsing image",
+				Content: err.Error(),
+			})
+		}
+
+		filename := strconv.Itoa(c.Get("id").(int)) + strconv.Itoa(int(time.Now().UnixMilli()))
+		f, err := os.Create("img/" + filename)
+		if err == nil {
+			_, err = f.Write(buf)
+		}
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, models.JsonResponse{
+				Message: "error creating/writing file",
 				Content: err.Error(),
 			})
 		}
@@ -49,7 +62,7 @@ func IncidentPostHandler(d *database.Database) echo.HandlerFunc {
 			Longitude:   float32(lon),
 			Title:       c.FormValue("title"),
 			Description: c.FormValue("description"),
-			Image:       buf,
+			Image:       filename,
 		}
 
 		err = d.NewIncident(inc)

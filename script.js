@@ -3,9 +3,9 @@ import { sleep } from 'k6';
 
 export const options = {
   // A number specifying the number of VUs to run concurrently.
-  vus: 400,
+  vus: 300,
   // A string specifying the total duration of the test run.
-  duration: '60s',
+  duration: '20s',
 
 }
 export default function() {
@@ -18,8 +18,9 @@ export default function() {
   const params = {
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidHlwIjoibmdvIiwiZXhwIjoxNzEzNDU4NTEwfQ.LZlUy1zzYsT3WpRzDbxF5Rrtvi5frv4gnMoPed1aDVY'
     },
   };
-  http.post("http://localhost:8080/ngo/nearest", payload, params)
-  sleep(1);
+  http.post("http://localhost:8080/ngo/dashboard", payload, params)
+  sleep(0.5);
 }

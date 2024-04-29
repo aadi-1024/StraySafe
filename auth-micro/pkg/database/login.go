@@ -9,7 +9,7 @@ import (
 // VerifyLogin verifies whether the credentials are correct and if so returns a JWT token
 func (d *Database) VerifyLogin(user models.User, j *jwtUtil.JwtConfig) (string, error) {
 	u := &models.User{}
-	res := d.Pool.First(u, "username = ?", user.Username)
+	res := d.Pool.First(u, "email = ?", user.Email)
 	if res.Error != nil {
 		return "", res.Error
 	}
@@ -34,6 +34,7 @@ func (d *Database) RegisterUser(user models.User) error {
 
 	res := d.Pool.Create(&models.User{
 		Username: user.Username,
+		Email:    user.Email,
 		Password: string(passHash),
 	})
 	return res.Error
@@ -41,7 +42,7 @@ func (d *Database) RegisterUser(user models.User) error {
 
 func (d *Database) ResetPassword(user models.User, newPass []byte) error {
 	u := &models.User{}
-	res := d.Pool.First(u, "username = ?", user.Username)
+	res := d.Pool.First(u, "email = ?", user.Email)
 	if res.Error != nil {
 		return res.Error
 	}

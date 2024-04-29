@@ -8,7 +8,7 @@ import (
 
 func (d *Database) VerifyNgoLogin(ngo models.Ngo, j *jwtUtil.JwtConfig) (string, error) {
 	u := &models.Ngo{}
-	res := d.Pool.First(u, ngo.Id)
+	res := d.Pool.First(u).Where("email = ?", ngo.Email)
 	if res.Error != nil {
 		return "", res.Error
 	}

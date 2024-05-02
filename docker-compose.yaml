@@ -35,6 +35,11 @@ services:
 #    logging:
 #      driver: none
 
+  frontend:
+    build:
+      dockerfile: frontend/Dockerfile
+    ports:
+      - 80:8081
 volumes:
   img:
     name: image-directory

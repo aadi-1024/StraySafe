@@ -48,7 +48,7 @@
     <script>
         function markResolved(incident) {
           return func => {
-            fetch(`http://localhost:8080/ngo/resolveIncident/${incident}`, {
+            fetch(`http://straysafe.centralindia.cloudapp.azure.com:8080/ngo/resolveIncident/${incident}`, {
               method: "GET",
               headers: {
                   "Authorization": "Bearer " + localStorage.getItem("jwt")
@@ -64,7 +64,7 @@
         if (localStorage.getItem("jwt") == null) {
             window.location.replace("LoginPage/loginpage.html")
         }
-        fetch("http://localhost:8080/ngo/dashboard", {
+        fetch("http://straysafe.centralindia.cloudapp.azure.com:8080/ngo/dashboard", {
             method: 'GET',
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("jwt")
@@ -110,7 +110,7 @@
                 }
                 cur.insertAdjacentHTML("beforeend", `
                 <div class="card" style="width: 18rem;">
-                    <img src="http://localhost:8080/static/${element["image"]}" class="card-img-top" alt="..." width=400>
+                    <img src="http://straysafe.centralindia.cloudapp.azure.com:8080/static/${element["image"]}" class="card-img-top" alt="..." width=400>
                     <div class="card">
                         <h5 class="card-title">${element["title"]}</h5>
                         <p class="card-text">${element["description"]}</p>

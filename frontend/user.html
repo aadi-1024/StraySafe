@@ -43,7 +43,7 @@
         if (localStorage.getItem("jwt") == null) {
             window.location.replace("LoginPage/loginpage.html")
         }
-        fetch("http://localhost:8080/user/incidents", {
+        fetch("http://straysafe.centralindia.cloudapp.azure.com:8080/user/incidents", {
             method: 'GET',
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("jwt")
@@ -83,7 +83,7 @@
                 }
                 cur.insertAdjacentHTML("beforeend", `
                 <div class="card" style="width: 18rem;">
-                    <img src="http://localhost:8080/static/${element["image"]}" class="card-img-top" alt="..." width=200px height=200px>
+                    <img src="http://straysafe.centralindia.cloudapp.azure.com:8080/static/${element["image"]}" class="card-img-top" alt="..." width=200px height=200px>
                     <div class="card-body">
                         <h5 class="card-title">${element["title"]}</h5>
                         <p class="card-text">${element["description"]}</p>

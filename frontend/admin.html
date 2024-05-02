@@ -158,7 +158,7 @@
                 jsonData["longitude"] = parseFloat(jsonData["longitude"])
 
                 try {
-                    const response = await fetch('http://localhost:9876/ngo/register', {
+                    const response = await fetch('http://straysafe.centralindia.cloudapp.azure.com:9876/ngo/register', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -196,7 +196,7 @@
 
         document.getElementById("delUserBut").addEventListener("click", () => {
             id = document.getElementById("delUserId").value
-            fetch("http://localhost:8080/admin/delete/" + id, {
+            fetch("http://straysafe.centralindia.cloudapp.azure.com:8080/admin/delete/" + id, {
                 method: "GET",
                 headers: {
                     "Authorization": localStorage.getItem("jwt"),
@@ -235,7 +235,7 @@
     });
     document.getElementById("makeAdminBut").addEventListener("click", () => {
             id = document.getElementById("makeAdminId").value
-            fetch("http://localhost:8080/admin/make/" + id, {
+            fetch("http://straysafe.centralindia.cloudapp.azure.com:8080/admin/make/" + id, {
                 method: "GET",
                 headers: {
                     "Authorization": localStorage.getItem("jwt"),
@@ -274,7 +274,7 @@
     });
     document.getElementById("delNgoBut").addEventListener("click", () => {
             id = document.getElementById("delNgoId").value
-            fetch("http://localhost:8080/admin/delete_ngo/" + id, {
+            fetch("http://straysafe.centralindia.cloudapp.azure.com:8080/admin/delete_ngo/" + id, {
                 method: "GET",
                 headers: {
                     "Authorization": localStorage.getItem("jwt"),
@@ -313,7 +313,7 @@
     });
     document.getElementById("markResBut").addEventListener("click", () => {
             id = document.getElementById("markResId").value
-            fetch("http://localhost:8080/admin/resolve/" + id, {
+            fetch("http://straysafe.centralindia.cloudapp.azure.com:8080/admin/resolve/" + id, {
                 method: "GET",
                 headers: {
                     "Authorization": localStorage.getItem("jwt"),

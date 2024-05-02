@@ -32,7 +32,7 @@ func (d *Database) GetNearestCases(latitude, longitude float32, limit int) ([]*m
 	var inc []*models.Incident
 	res := d.Pool.Table("incidents").Clauses(clause.OrderBy{
 		Expression: clause.Expr{SQL: "SQRT(POWER(latitude - ?,2) + POWER(longitude - ?,2))", Vars: []interface{}{[]float32{latitude}, []float32{longitude}}},
-	}).Select("id", "latitude", "longitude").Limit(limit).Where("resolved = ?", false).Find(&inc)
+	}).Limit(limit).Where("resolved = ?", false).Find(&inc)
 	return inc, res.Error
 }
 

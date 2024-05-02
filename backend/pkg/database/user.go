@@ -21,3 +21,9 @@ func (d *Database) GetNearestNgo(latitude, longitude float32, num int) ([]*model
 	}).Select("name", "about", "latitude", "longitude").Limit(num).Find(&ngos)
 	return ngos, res.Error
 }
+
+func (d *Database) GetIncidents(uid int) ([]*models.Incident, error) {
+	var incs []*models.Incident
+	res := d.Pool.Table("incidents").Find(&incs, "uid = ?", uid).Limit(50)
+	return incs, res.Error
+}

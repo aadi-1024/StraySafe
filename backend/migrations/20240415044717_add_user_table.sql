@@ -5,6 +5,7 @@ CREATE TABLE Users (
     Id SERIAL PRIMARY KEY,
     Username VARCHAR(64) UNIQUE NOT NULL,
     Email VARCHAR(64) UNIQUE NOT NULL,
+    Admin BOOL DEFAULT FALSE,
     Password CHAR(64) NOT NULL
 );
 -- +goose StatementEnd

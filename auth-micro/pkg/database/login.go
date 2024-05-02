@@ -19,7 +19,13 @@ func (d *Database) VerifyLogin(user models.User, j *jwtUtil.JwtConfig) (string, 
 		return "", err
 	}
 	//if no err up till this point, password has been verified as correct
-	token, err := j.GenerateToken(u.Id, "usr")
+	//token, err := j.GenerateToken(u.Id, "usr")
+	var token string
+	if u.Admin {
+		token, err = j.GenerateToken(u.Id, "adm")
+	} else {
+		token, err = j.GenerateToken(u.Id, "usr")
+	}
 	if err != nil {
 		return "", err
 	}

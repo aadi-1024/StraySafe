@@ -11,7 +11,7 @@ import (
 
 func MarkResolvedHandler(db *database.Database) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		if c.Get("typ") != "ngo" {
+		if c.Get("typ") != "ngo" && c.Get("typ") != "adm" {
 			return c.JSON(http.StatusBadRequest, models.JsonResponse{
 				Message: "expected ngo",
 				Content: nil,
@@ -45,7 +45,7 @@ func MarkResolvedHandler(db *database.Database) echo.HandlerFunc {
 // number of incidents resolved
 func GetDashboardHandler(db *database.Database) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		if c.Get("typ") != "ngo" {
+		if c.Get("typ") != "ngo" && c.Get("typ") != "adm" {
 			return c.JSON(http.StatusUnauthorized, models.JsonResponse{
 				Message: "ngo expected",
 				Content: nil,
@@ -91,7 +91,7 @@ func GetDashboardHandler(db *database.Database) echo.HandlerFunc {
 
 func GetIncidentHandler(d *database.Database) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		if c.Get("typ") != "ngo" {
+		if c.Get("typ") != "ngo" && c.Get("typ") != "adm" {
 			return c.JSON(http.StatusBadRequest, models.JsonResponse{
 				Message: "ngo expected",
 				Content: nil,
@@ -124,7 +124,7 @@ func GetIncidentHandler(d *database.Database) echo.HandlerFunc {
 
 func GetImage() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		if c.Get("typ") != "ngo" {
+		if c.Get("typ") != "ngo" && c.Get("typ") != "adm" {
 			return c.JSON(http.StatusBadRequest, models.JsonResponse{
 				Message: "ngo expected",
 				Content: nil,

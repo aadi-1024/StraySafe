@@ -13,7 +13,7 @@ import (
 
 func IncidentPostHandler(d *database.Database) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		if c.Get("typ").(string) != "usr" {
+		if c.Get("typ").(string) != "usr" && c.Get("typ") != "adm" {
 			return c.JSON(http.StatusUnauthorized, models.JsonResponse{
 				Message: "user expected",
 				Content: nil,
@@ -76,6 +76,29 @@ func IncidentPostHandler(d *database.Database) echo.HandlerFunc {
 		return c.JSON(http.StatusOK, models.JsonResponse{
 			Message: "successful",
 			Content: nil,
+		})
+	}
+}
+
+func UserIncidents(d *database.Database) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		if c.Get("typ").(string) != "usr" && c.Get("typ") != "adm" {
+			return c.JSON(http.StatusUnauthorized, models.JsonResponse{
+				Message: "user expected",
+				Content: nil,
+			})
+		}
+		uid := c.Get("id").(int)
+		data, err := d.GetIncidents(uid)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, models.JsonResponse{
+				Message: "database error",
+				Content: err.Error(),
+			})
+		}
+		return c.JSON(http.StatusOK, models.JsonResponse{
+			Message: "successful",
+			Content: data,
 		})
 	}
 }
